@@ -39,7 +39,7 @@ class BridgeGameTest {
         for (String input:inputs) {
             if(bridgeGame.move(input) == 0){
                 round++;
-            };
+            }
         }
         int result = bridgeGame.move("D");
 
@@ -61,7 +61,7 @@ class BridgeGameTest {
         for (String input:inputs) {
             if(bridgeGame.move(input) == 0){
                 round++;
-            };
+            }
         }
 
         //then
@@ -74,6 +74,9 @@ class BridgeGameTest {
         Bridge bridge = new Bridge(List.of("U", "D", "D", "U", "D"));
         BridgeGame bridgeGame = new BridgeGame(bridge);
         String[] inputs = {"U", "D", "D", "U"};
+        for (String input:inputs) {
+            bridgeGame.move(input);
+        }
 
         bridgeGame.retry();
         assertEquals(0, bridgeGame.getPlayer().getRound());
