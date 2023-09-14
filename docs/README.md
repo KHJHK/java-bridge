@@ -129,14 +129,19 @@
   - 게임을 재시작하는 메서드
   - Player 객체에 try 정보를 1회 추가해준다
   - Player 객체의 initMove()와 addTry() 활용
-  
+
 ## BridgeMaker
   ### public List<String> makeBridge(int size)
   - Bridge를 만들어서 전달해주는 메서드
   - BridgeRandomNumberGenerator.generate() 메서드를 활용해 랜덤한 값(0 or 1) 입력
   - 랜덤 값을 size만큼 받아 U 혹은 D 형태로 저장
   - 완성된 다리를 return
-  
+    
+-----------------
+ 
+# 6. Etc
+## Application
+- main 메서드 실행 클래스
 ## BridgeRandomNumberGenerator
 - 랜덤 다리를 생성하기 위해 사용하는 클래스
 - 미리 제공된 클래스
