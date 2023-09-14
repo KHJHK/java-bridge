@@ -87,7 +87,7 @@
 - 다리의 정보를 저장 => 일급 컬렉션으로 저장
                         => private final List<String> bridge; 
 
-  ### public Bridge(int size)
+  ### public Bridge(List<String> bridge)
   - Bridge의 생성자
   - size를 입력받아 다리 생성
  
