@@ -31,6 +31,7 @@
   ### public String printResult(String map, int try)
   - 사용자의 게임 내용을 입력받아 출력
 
+
 ----------
 
 # 2. Utils
@@ -47,11 +48,13 @@
     ### public static void validateGameRestartOrQuitInput(String input)
     - 사용자가 입력한 값이 R(재시작) 혹은 Q(그만하기)인지 확인 (input == R or Q)
  
+
 -----------------------------
 
 # 3. Constants
 ## Constants
 - 입/출력 및 내부에서 사용되는 상수(혹은 변하는 값이 없는 텍스트) 정보 저장용 클래스
+
 
 -----------------------------
 
@@ -79,6 +82,7 @@
   - BridgeGame.move() 실행
   - 결과로 받은 맵 정보 및 게임 정보를 OutputView로 전달
 
+
 -----------------------------
 
 # 5. Domain
@@ -96,6 +100,7 @@
  
   ### public boolean isSameUserInputAndBridge(String move, int round)
   - 해당 라운드(index로 사용 가능)의 사용자 이동과 다리의 정답이 같다면 true, 다르다면 false return
+<<<<<<< Updated upstream
  
 ## Player
 - Player의 정보를 담을 클래스
@@ -112,6 +117,39 @@
   ### public void addTry()
   - Player의 게임 재시작 횟수를 1회 늘림
   - try++;
+=======
+
+
+## Player
+- Player 정보를 담을 클래스
+- Player의 이동 및 시도 횟수 저장( List<String> move, int trys = 0 )
+
+  ### public Player()
+  - Player 객체 생성자
+  - move와 trys를 초기화함
+
+  ### public void initMove()
+  - Player의 move를 초기화함
+  - 게임 재시작시 사용
+
+  ### public void countTrys()
+  - Player의 시도 횟수 추가
+  - 게임 재시작시 사용
+
+  ### public void addMove(String move)
+  - Player의 이동을 move에 저장
+
+  ### public List<String> getMove()
+  - Player의 이동 return
+
+  ### public int getTrys()
+  - Player의 시도 횟수 return
+
+  ### public int getRound()
+  - Player가 몇 번째 라운드(몇 번째 다리)를 진행중인지 확인
+  - move.size() return
+
+>>>>>>> Stashed changes
 
 -----------------
  
@@ -130,6 +168,33 @@
   - Player 객체에 try 정보를 1회 추가해준다
   - Player 객체의 initMove()와 addTry() 활용
 
+## BridgeGame
+- BridgeGame의 세부 동작들을 통해 게임을 진행시키는 클래스
+- 정답 Bridge와 Player 정보를 저장
+- List<String> bridge, Player player
+
+  ### public BridgeGame(List<String> Bridge)
+  - BridgeGame 객체 생성자
+  - Bridge와 Player 초기화
+
+  ### public int move(String move)
+  - 입력받은 이동 정보 저장
+  - isGameEnd() 메서드로 이동 후 게임 상황 체크(진행중 or 종료됨)
+  - 이동 후 현재 게임의 진행 상황을 숫자로 return(0 : 진행중 | 1 : 승리 | 2 : 패배)
+
+  ### public void retry()
+  - 게임 재시작 횟수를 1회 늘림
+  - player.countTrys();
+
+  ### public boolean isGameEnd()
+  - 게임이 끝났는지 확인하는 메서드
+  - 끝났으면 true, 진행중이면 false return
+
+  ### public Player getPlayer()
+  - BridgeGame을 진행한 Player 정보 return
+  - OutputView에서 출력할 정보를 얻기 위한 메서드
+
+
 ## BridgeMaker
   ### public List<String> makeBridge(int size)
   - Bridge를 만들어서 전달해주는 메서드
@@ -142,6 +207,7 @@
 # 6. Etc
 ## Application
 - main 메서드 실행 클래스
+
 ## BridgeRandomNumberGenerator
 - 랜덤 다리를 생성하기 위해 사용하는 클래스
 - 미리 제공된 클래스
