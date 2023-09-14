@@ -14,6 +14,9 @@ public class Bridge {
     }
 
     public boolean isSameUserInputAndBridge(String move, int round){
+        if(move.equals(bridge.get(round - 1))){
+            return true;
+        }
         return false;
     }
 
