@@ -1,7 +1,7 @@
 기능 구현 목록
 ============================
-1. View
------------------------------
+
+# 1. View
 ## InputView
 - 사용자의 입력을 받는 class
 - 다리의 사이즈(숫자), 다리 이동 방향('U' | 'D'), 게임 재시작 여부('R' | 'Q')를 입력받는다.
@@ -31,8 +31,9 @@
   ### public String printResult(String map, int try)
   - 사용자의 게임 내용을 입력받아 출력
 
-2. Utils
------------------------------
+----------
+
+# 2. Utils
 ## Validator
 - 유효성 검사 클래스
 - InputView에서 입력 받은 사용자 입력 값들과 Controller에서 전달 받는 값들의 유효성 검사를 진행한다.
@@ -46,13 +47,15 @@
     ### public static void validateGameRestartOrQuitInput(String input)
     - 사용자가 입력한 값이 R(재시작) 혹은 Q(그만하기)인지 확인 (input == R or Q)
  
-3. Constants
 -----------------------------
+
+# 3. Constants
 ## Constants
 - 입/출력 및 내부에서 사용되는 상수(혹은 변하는 값이 없는 텍스트) 정보 저장용 클래스
 
-4. Controller
 -----------------------------
+
+# 4. Controller
 ## Controller
 - Validator 및 service와 연결되어 게임 전체 동작을 컨트롤 하는 클래스
 
@@ -61,10 +64,11 @@
   - 사용자에게 입력값을 받아 다리를 생성하고 게임 실행
   - moveUser() 메서드 실행
  
-  ### public void reStartGame()
+  ### public void retryGame()
   - 게임을 재시작하는 메서드
   - 사용자 입력값을 받아 게임 재시작 여부 선택
   - startGame() 혹은 endGame() 호출
+  - BrideGame.retry() 호출
   ### public void endGame()
   - 게임 종료 메서드
   - 저장된 map 및 play 차수 정보를 OutputView로 전달
@@ -72,10 +76,12 @@
   ### public void moveUser()
   - 사용자의 이동을 입력받아 실행시킴
   - 입력받은 입력을 통해 맵 제작 메서드 및 게임 진행 체크 메서드 실행
+  - BridgeGame.move() 실행
   - 결과로 받은 맵 정보 및 게임 정보를 OutputView로 전달
 
- 5. Domain
 -----------------------------
+
+# 5. Domain
 ## Bridge
 - 다리 정보를 담을 클래스
 - 다리의 정보를 저장 => 일급 컬렉션으로 저장
@@ -91,25 +97,48 @@
   ### public boolean isSameUserInputAndBridge(String move, int round)
   - 해당 라운드(index로 사용 가능)의 사용자 이동과 다리의 정답이 같다면 true, 다르다면 false return
  
-## User
-- 유저의 정보를 담을 클래스
-- 유저의 이동과 선택한 다리를 저장(int try = 0, List<String> moves)
+## Player
+- Player의 정보를 담을 클래스
+- Player의 이동과 선택한 다리를 저장(int try = 0, List<String> move)
  
   ### public void initMove()
-  - User의 이동 정보 초기화
+  - Player의 이동 정보 초기화
   - moves.add(String move)
  
   ### public void addMove(String move)
-  - User의 이동 정보 저장
-  - moves.clear();
+  - Player의 이동 정보 저장
+  - move.clear();
  
   ### public void addTry()
-  - User의 게임 재시작 횟수를 1회 늘림
+  - Player의 게임 재시작 횟수를 1회 늘림
   - try++;
+
+-----------------
  
- 6. Service
------------------------------
+# 6. Service
 ## BridgeGame
+  - BridgeGame을 진행하는 service
+  - Player 정보 저장
+
+  ### public void move()
+  - Player의 이동을 구현한 메서드
+  - Player객체에 이동 정보 저장
+  - Player.addMove() 활용
+    
+  ### public void retry()
+  - 게임을 재시작하는 메서드
+  - Player 객체에 try 정보를 1회 추가해준다
+  - Player 객체의 initMove()와 addTry() 활용
+  
 ## BridgeMaker
+  ### public List<String> makeBridge(int size)
+  - Bridge를 만들어서 전달해주는 메서드
+  - BridgeRandomNumberGenerator.generate() 메서드를 활용해 랜덤한 값(0 or 1) 입력
+  - 랜덤 값을 size만큼 받아 U 혹은 D 형태로 저장
+  - 완성된 다리를 return
+  
 ## BridgeRandomNumberGenerator
+- 랜덤 다리를 생성하기 위해 사용하는 클래스
+- 미리 제공된 클래스
+
 
